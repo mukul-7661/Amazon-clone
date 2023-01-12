@@ -6,6 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  /* width: 100%; */
 }
 
 .header__logo {
@@ -20,6 +21,9 @@
   flex: 1;
   align-items: center;
   border-radius: 24px;
+  width: 100%;
+  /* flex-grow: 2;
+  flex-basis: auto; */
 }
 
 .header__searchInput {
@@ -66,4 +70,36 @@
   margin-left: 10px;
   margin-right: 10px;
   color: white;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .header__nav {
+    display: none;
+  }
+  .hamburger-menu {
+    display: block;
+    margin: auto 20px;
+  }
+  .header__nav__mobile {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 90;
+    top: 60px;
+    right: 0;
+    background-color: #131921;
+    justify-content: space-evenly;
+    width: 170px;
+    /* align-items: center; */
+  }
+
+  .header__option,
+  .header__optionBasket {
+    margin: 0 auto;
+    margin: 10px 20px;
+  }
 }
