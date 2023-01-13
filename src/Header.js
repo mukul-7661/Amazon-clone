@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { GiHamburgerMenu } from "react-icons/gi";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
@@ -12,6 +12,22 @@ import { auth } from "./firebase";
 function Header() {
   const [showHeaderNav, setShowHeaderNav] = useState(false);
   const [{ basket, user }, dispatch] = useStateValue();
+  const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
+
+  useEffect(() => {
+    if (basket.length === 0) {
+      return;
+    }
+    setBtnIsHighlighted(true);
+
+    const timer = setTimeout(() => {
+      setBtnIsHighlighted(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [basket]);
 
   const handleHamburgerClick = () => {
     setShowHeaderNav(!showHeaderNav);
@@ -47,7 +63,9 @@ function Header() {
 
       <div
         className={
-          showHeaderNav ? "header__nav header__nav__mobile" : "header__nav"
+          showHeaderNav
+            ? "header__nav header__nav__mobile hamburger__slide"
+            : "header__nav"
         }
       >
         <Link to={!user && "/login"}>
@@ -74,7 +92,14 @@ function Header() {
         </div>
 
         <Link to="/checkout">
-          <div className="header__optionBasket" onClick={handleClick}>
+          <div
+            className={
+              btnIsHighlighted
+                ? "header__optionBasket bump"
+                : "header__optionBasket"
+            }
+            onClick={handleClick}
+          >
             <ShoppingBasketIcon />
             <span className="header__optionLineTwo header__basketCount">
               {basket?.length}
@@ -83,17 +108,18 @@ function Header() {
         </Link>
       </div>
 
-      <div className="hamburger-menu">
+      <div
+        className={
+          showHeaderNav ? "hamburger-menu hamburger__slide" : "hamburger-menu"
+        }
+      >
         <a href="#" onClick={handleHamburgerClick}>
           <MenuIcon className="hamburger__icon" />
         </a>
       </div>
 
       {showHeaderNav && (
-        <div
-          onClick={handleHamburgerClick}
-          className="hamburger__backdrop"
-        ></div>
+        <div onClick={handleClick} className="hamburger__backdrop"></div>
       )}
     </div>
   );
