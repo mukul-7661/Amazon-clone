@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
@@ -16,10 +17,17 @@ function Header() {
     setShowHeaderNav(!showHeaderNav);
   };
 
+  const handleClick = () => {
+    if (showHeaderNav) {
+      setShowHeaderNav(false);
+    }
+  };
+
   const handleAuthenticaton = () => {
     if (user) {
       auth.signOut();
     }
+    handleClick();
   };
 
   return (
@@ -54,19 +62,19 @@ function Header() {
         </Link>
 
         <Link to="/orders">
-          <div className="header__option">
+          <div className="header__option" onClick={handleClick}>
             <span className="header__optionLineOne">Returns</span>
             <span className="header__optionLineTwo">& Orders</span>
           </div>
         </Link>
 
-        <div className="header__option">
+        <div className="header__option" onClick={handleClick}>
           <span className="header__optionLineOne">Your</span>
           <span className="header__optionLineTwo">Prime</span>
         </div>
 
         <Link to="/checkout">
-          <div className="header__optionBasket">
+          <div className="header__optionBasket" onClick={handleClick}>
             <ShoppingBasketIcon />
             <span className="header__optionLineTwo header__basketCount">
               {basket?.length}
@@ -77,9 +85,16 @@ function Header() {
 
       <div className="hamburger-menu">
         <a href="#" onClick={handleHamburgerClick}>
-          <ShoppingBasketIcon />
+          <MenuIcon className="hamburger__icon" />
         </a>
       </div>
+
+      {showHeaderNav && (
+        <div
+          onClick={handleHamburgerClick}
+          className="hamburger__backdrop"
+        ></div>
+      )}
     </div>
   );
 }

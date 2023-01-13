@@ -102,4 +102,17 @@
     margin: 0 auto;
     margin: 10px 20px;
   }
+
+  .hamburger__icon {
+    color: white;
+  }
+
+  .hamburger__backdrop {
+    /* background-color: aqua; */
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 60px;
+    left: 0;
+  }
 }

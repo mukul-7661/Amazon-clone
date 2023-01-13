@@ -26,7 +26,7 @@ function Payment() {
         </div>
 
         {/* Payment section - Review Items */}
-        <div className="payment__section">
+        <div className="payment__section payment__section__mobile">
           <div className="payment__title">
             <h3>Review items and delivery</h3>
           </div>
