@@ -14,6 +14,7 @@ function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
+  // animation for basket-button
   useEffect(() => {
     if (basket.length === 0) {
       return;
