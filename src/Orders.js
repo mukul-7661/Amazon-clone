@@ -29,7 +29,7 @@ function Orders() {
 
   return (
     <div className="orders">
-      <h1>Login to see Orders</h1>
+      {!user && <h1>Login to see Orders</h1>}
 
       <div className="orders__order">
         {orders?.map((order) => (

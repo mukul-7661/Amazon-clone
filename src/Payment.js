@@ -36,6 +36,12 @@ function Payment() {
     getClientSecret();
   }, [basket]);
 
+  const emptyBasket = () => {
+    dispatch({
+      type: "EMPTY_BASKET",
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
@@ -48,7 +54,7 @@ function Payment() {
       })
       .then(({ paymentIntent }) => {
         // paymentIntent = payment confirmation
-
+        console.log("hey");
         db.collection("users")
           .doc(user?.uid)
           .collection("orders")
@@ -63,9 +69,11 @@ function Payment() {
         setError(null);
         setProcessing(false);
 
-        dispatch({
-          type: "EMPTY_BASKET",
-        });
+        // dispatch({
+        //   type: "EMPTY_BASKET",
+        // });
+
+        // emptyBasket();
 
         navigate("/orders");
       });
